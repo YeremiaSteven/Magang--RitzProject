@@ -1,0 +1,26 @@
+<!-- Menghubungkan dengan view template master -->
+@extends('template')
+@section('content')
+<div class="card-body">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 ">
+            <form action="{{ url('detail/edit')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="">Id Item</label>
+                    <input type="text" name="id" value="{{$master->id_itemdtl}}">
+                    <div class="mb-3 mt-5">
+                        <label for="exampleFormControlInput1" class="form-label">Image Product</label>
+                        <input name="image" type="file" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning">Update</button>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+@endsection
