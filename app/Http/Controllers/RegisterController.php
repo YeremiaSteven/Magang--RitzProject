@@ -41,6 +41,8 @@ class RegisterController extends Controller
             'dcrea' => Carbon::now(),
         ]);
 
+        
+        
         if (!$check_insert){
             Alert::error('Error', 'Data cannot be store to Database');
         } else {
@@ -63,6 +65,7 @@ class RegisterController extends Controller
 
             return back()->with('success', 'We have e-mailed your activation account link');
         }
+     
 	// alihkan halaman ke halaman pegawai
     }
 

@@ -16,6 +16,7 @@ class LoginController extends Controller
     }
 
     public function indextk(){
+       //$nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
         return view ('loginadmin');
     }
 
@@ -27,6 +28,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
         $kredensil = $request->only('email', 'password');
+       
         // $user=User::where('username',$request->username)->first();
         if(Auth::attempt($kredensil))
         {
@@ -49,6 +51,8 @@ class LoginController extends Controller
         Alert::error('Error', 'Invalid Email or Password');
         return back();
     }
+
+    
 
     public function dashboard_admin(Request $request)
     {

@@ -15,7 +15,7 @@ class RegisterAdminController extends Controller
         return view ('registeradmin');
     }
 
-    public function Register(Request $request)
+    public function RegisterAdmin(Request $request)
     {
         $request->validate
         ([
