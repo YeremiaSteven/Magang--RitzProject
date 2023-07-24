@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +15,7 @@
     <!-- Import font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
-    <title>Register</title>
+    <title>Forgot Password</title>
     <style>
       body{
         background-color: #78A3EB;
@@ -27,7 +28,6 @@
     </style>
   </head>
   <body>
-    <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- Navbar -->
     <section id="navbar">
       <nav class="navbar navbar-expand-lg">
@@ -36,11 +36,10 @@
               <a class="text-decoration-none small text-light me-3" href="#"><i class="fa-solid fa-check me-1"></i>FLASH SALE IS ONGOING</a>
               <div class="btn-group">
                 <button class="btn btn-sm dropdown-toggle text-light small" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Login As
+                  Eng
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item small" href="loginadmin">Admin</a></li>
-                  <li><a class="dropdown-item small" href="login">User</a></li>
+                  <li><a class="dropdown-item small" href="#">Ind</a></li>
                 </ul>
                 <a class="nav-link small text-light">Faqs</a>
                 <a class="nav-link small text-light">Need Help<i class="fa-solid fa-exclamation ms-1"></i></a>
@@ -49,89 +48,87 @@
       </nav>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-          <div class="container-fluid">
+        <div class="container-fluid">
           <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" class="img-fluid mx-auto d-block mb-2">
-            <a class="navbar-brand ms-1 fw-bolder" href="#">RITZ APPS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item ms-2 mb-2">
-                  <div class="input-group rounded">
-                    </span>
-                  </div>
+          <a class="navbar-brand ms-1 fw-bolder" href="<?php echo e(route ('login')); ?>">TOKO BIRU</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item ms-2 mb-2">
+                <div class="input-group rounded">
+                  <input type="search" class="form-control rounded" placeholder="Search here..." aria-label="Search" aria-describedby="search-addon" />
+                  <span class="input-group-text border-0" id="search-addon">
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div>
+              </li>
+              <li class="nav-item text-center mb-2">
+                <button type="button" class="btn btn-secondary ms-2"><i class="fas fa-shopping-cart me-2"></i>Cart</button>
+              </li>
+              <li class="nav-item text-center mb-2">
+                <button type="button" class="btn btn-outline-secondary ms-2"><i class="fa-regular fa-heart"></i></button>
+              </li>
+              <li class="nav-item text-center">
+                <a class="navbar-brand ms-1 fw-bolder" href="<?php echo e(route ('login')); ?>">
+                <button type="button" class="btn btn-outline-secondary ms-2"><i class="fa-regular fa-user"></i></button>
+                </a>
                 </li>
-              </ul>
-            </div>
+            </ul>
           </div>
-        </nav>
-      </section>
+        </div>
+      </nav>
+    </section>
 
-    <!-- Register Form -->
-    <section id="RegisterForm">
+    <!-- Forgot Pasword Form -->
+    <section id="ForgotForm">
       <div class="container text-light">
-        <div class="row">
-          <div class="col-md-6 mt-5">
-            <img src="assets/img/Register-1.png" alt="Background Register" class="img-fluid mx-auto d-block mb-3" style="max-width: 60%;">
-            <p class="h1 fw-bolder">SELAMAT DATANG DAN BERBELANJA!</p>
-          </div>
+        <div class="row justify-content-center">
           <div class="col-md-6">
             <div class="row">
-                <p class="h2 fw-bold mt-3">Register</p>
+                <p class="h2 fw-bold mt-5 mb-5">Forgot Password</p>
             </div>
-            <form action="<?php echo e(route('verified.account.link')); ?>" method="POST">
-                <?php if(Session::get('fail')): ?>
+            <form method="POST" action="<?php echo e(route('forgot.password.link')); ?>" class="mb-5">
+              <?php if(Session::get('fail')): ?>
                 <div class="alert alert-danger">
                   <?php echo e(Session::get('fail')); ?>
 
                 </div>
-                <?php endif; ?>
+              <?php endif; ?>
 
-                <?php if(Session::get('info')): ?>
-                    <div class="alert alert-info">
-                      <?php echo e(Session::get('info')); ?>
-
-                    </div>
-                <?php endif; ?>
-
-                <?php if(Session::get('success')): ?>
+              <?php if(Session::get('success')): ?>
                 <div class="alert alert-success">
                   <?php echo e(Session::get('success')); ?>
 
                 </div>
-                 <?php endif; ?>
+              <?php endif; ?>
 
-                 <?php echo csrf_field(); ?>
-                <div class="form-group row mt-3">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Fullname</label>
-                        <input name="nama" type="text" class="form-control" required placeholder="Enter your fullname">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email</label>
-                        <input name="email" type="email" class="form-control" required placeholder="Enter your email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-                        <input name="notelp" type="number" class="form-control" required placeholder="Enter your phone number">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Address</label>
-                        <textarea name="address" class="form-control" required id="exampleFormControlTextarea1" rows="3" placeholder="Enter your address"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Password</label>
-                        <input name="password" type="password" class="form-control" required placeholder="Enter your password">
-                    </div>
-                    
-                    <div class="col text-center">
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                </div>
+              <?php echo csrf_field(); ?>
+              <div class="mb-3">
+                <p class="fw-bold">
+                  Enter your email address and we'll send you an email with instructions to reset your password.
+                </p>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" placeholder="Enter email address"
+                value="<?php echo e(old('email')); ?>">
+                <span class="text-danger"><?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <?php echo e($message); ?> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?></span>
+              </div>
+              <br>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">Send Reset Password Link</button>
+              </div>
             </form>
             <div class="row mt-3">
-                <p class="small text-center">Already have an account? <a href="login" class="text-light fw-bold">Login</a></p>
             </div>
             
           </div>
@@ -151,10 +148,10 @@
               <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <!-- Content -->
                 <h6 class="text-uppercase fw-bold mb-4">
-                  <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" style="width: 12%;"> RITZ APPS
+                  <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" style="width: 12%;"> Tokobiru
                 </h6>
                 <p>
-                Transform your lifestyle and elevate your shopping experience with our exclusive collection of lifestyle products, available now on our e-commerce platform. 
+                Transform your lifestyle and elevate your shopping experience with our exclusive collection of lifestyle products, available now on our e-commerce platform.
                 </p>
               </div>
               <!-- Grid column -->
@@ -224,7 +221,7 @@
         <!-- Copyright -->
         <div class="text-center p-3 bg-light">
           © 2022 Copyright:
-          <a class="text-reset fw-bold" href="#"><img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" class="img-fluid"> RITZ APPS</a>
+          <a class="text-reset fw-bold" href="#"><img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" class="img-fluid"> Toko Biru</a>
         </div>
         <!-- Copyright -->
       </footer>
@@ -233,4 +230,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
-<?php /**PATH D:\ProjectMagang\ecm_app-main\resources\views/register.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\ProjectMagang\ecm_app-main\resources\views/forgot_password.blade.php ENDPATH**/ ?>

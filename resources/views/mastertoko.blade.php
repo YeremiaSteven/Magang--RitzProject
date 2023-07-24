@@ -14,6 +14,7 @@
 			  <tr class="text-center">
 				<th scope="col">Id</th>
 				<th scope="col">Name Toko</th>
+				<th scope="col">No Handphone Toko</th>
 				<th scope="col">Alamat Toko</th>
 				<th scope="col">Rate Toko</th>
 				<th scope="col">Last Update</th>
@@ -26,6 +27,7 @@
 					<td>{{++$i}}</td>
 					<td>{{$u->vname_toko}}</td>
 					<td>{{$u->vaddress_toko}}</td>
+					<td>{{$u->vno_telptoko}}</td>
 					<td>{{$u->irate_toko}}</td>
 					<td>{{$u->dmodi}}</td>
 					<td class="text-center"><a href="/master/toko/edit/{{$u->id_toko}}"><i class="fa-regular fa-pen-to-square me-2"></i></a><a href="/master/header/delete/{{$u->id_item}}"><i class="fa-solid fa-trash me-2"></i></a><a href="detail/{{$u->id_item}}"><i class="fa fa-info-circle me-2" aria-hidden="true"></i></a></td>
@@ -56,14 +58,18 @@
                     </div>
 					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Address Toko</label>
-                        <input name="nama" type="text" class="form-control" placeholder="Enter the Address Toko" required>
+                        <input name="address type="text" class="form-control" placeholder="Enter the Address Toko" required>
+                    </div>
+					<div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+                        <input name="notelp" type="number" class="form-control" placeholder="Enter your phone number" required>
                     </div>
 					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Rate Toko</label>
                         <input name="stock" type="number" class="form-control" placeholder="Enter the Stock" min="0" oninput="this.value =
  !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" required >
                     </div>
-
+					
                 </div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
