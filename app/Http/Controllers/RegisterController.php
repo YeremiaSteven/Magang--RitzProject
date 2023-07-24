@@ -47,7 +47,7 @@ class RegisterController extends Controller
             Alert::error('Error', 'Data cannot be store to Database');
         } else {
             $token = Str::random(4);
-            $register = DB::table('token_register')->insert([
+            $register = DB::table('token_register_1')->insert([
                 'email' => $request->email,
                 'token' => $token,
                 'created_at' => Carbon::now(),
@@ -72,7 +72,7 @@ class RegisterController extends Controller
     public function RegisterLink(Request $request, $token = null){
 
         $user = DB::table('users')->where(['email'=>$request->email])->first();
-        $check_token = \DB::table('token_register')->where([
+        $check_token = \DB::table('token_register_1')->where([
             'email'=>$request->email,
             'token'=>$request->token,
         ])->first();
@@ -90,7 +90,7 @@ class RegisterController extends Controller
                 'istatus_address'=>1,
             ]);
             DB::table('users')->where(['email'=>$request->email])->update(['istatus_user' => 1]);
-            \DB::table('token_register')->where([
+            \DB::table('token_register_1')->where([
                 'email'=>$request->email
             ])->delete();
 

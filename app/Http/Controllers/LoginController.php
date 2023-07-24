@@ -15,11 +15,7 @@ class LoginController extends Controller
         return view ('login', compact('nama_web'));
     }
 
-    public function indextk(){
-       //$nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-        return view ('loginadmin');
-    }
-
+   
     public function authenticate(Request $request)
     {
         request()->validate
@@ -40,7 +36,7 @@ class LoginController extends Controller
                  } elseif ($user->id_role == 44442){
                     return redirect()->intended('staff');
                  } elseif ($user->id_role == 44443){
-                    return redirect()->intended('home');
+                    return redirect()->intended('home'); // user
                  }
             } elseif ($user->istatus_user == 0) {
 
