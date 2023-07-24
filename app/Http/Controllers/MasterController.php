@@ -227,9 +227,13 @@ class MasterController extends Controller
     public function store_headertk(Request $request){
         if (strlen($request->barcode) <=20){
             $query = DB::table('tmastertoko')
-                -> insert([
+            ->join('admin' , 'tmastertoko.id_admin', '=', 'admin.id_admin')
+            ->select('tmastertoko.*', 'admin.vadmin')->
+                insert([
                     'vname_toko' => $request->nama,
                     'id_toko' => $request->id,
+                    'id_admin' =>$request->id_admin,
+                    'vno_telptoko'=>$request->no_hptoko,
                     'vaddress_toko' => $request->address,
                     'irating_toko' => $request->rating,
                     'vcrea' => Auth::user()->email,

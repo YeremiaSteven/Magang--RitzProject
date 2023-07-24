@@ -28,15 +28,15 @@ class RegisterAdminController extends Controller
 
         $email = $request->email;
 
-    // insert data ke table users
-        $check_insert = DB::table('users')->insert([
-            'vname' => $request->nama,
-            'email' => $request->email,
+    // insert data ke table admin
+        $check_insert = DB::table('admin')->insert([
+            'vname' => $request->storename,
+            'email_admin' => $request->email,
             'vno_telp' => $request->notelp,
-            'password' => bcrypt($request->password),
+            'password_admin' => bcrypt($request->password),
             'profile_picture' => 'blank_profilepicture.png',
-            'istatus_user' => 0,
-            'id_role' => 44443,
+            'istatus_admin' => 0,
+            'id_role' => 44441,
             'vcrea' => $request->email,
             'dcrea' => Carbon::now(),
         ]);
@@ -46,12 +46,12 @@ class RegisterAdminController extends Controller
         } else {
             $token = Str::random(4);
             $register = DB::table('token_register')->insert([
-                'email' => $request->email,
+                'email_admin' => $request->email,
                 'token' => $token,
                 'created_at' => Carbon::now(),
             ]);
 
-            $action_link = route('store.user',['token'=>$token,'email'=>$request->email,'address'=>$request->address]);
+            $action_link = route('admin.user',['token'=>$token,'email'=>$request->email,'address'=>$request->address]);
 
             $body = "We have received a request to verify this account for <b>TokoBiru</b> account associated with ".$request->email.". You can active this account by clicking the link below.";
 
@@ -66,11 +66,11 @@ class RegisterAdminController extends Controller
 	// alihkan halaman ke halaman pegawai
     }
 
-    public function RegisterLink(Request $request, $token = null){
+    public function RegisterLinkAdmin(Request $request, $token = null){
 
-        $user = DB::table('users')->where(['email'=>$request->email])->first();
+        $user = DB::table('admin')->where(['email_admin'=>$request->email])->first();
         $check_token = \DB::table('token_register')->where([
-            'email'=>$request->email,
+            'email_admin'=>$request->email,
             'token'=>$request->token,
         ])->first();
 
@@ -78,21 +78,20 @@ class RegisterAdminController extends Controller
         if(!$check_token){
             return back()->withInput()->with('fail', 'Invalid token');
         }else{
-            DB::table('taddress')->insert([
+            DB::table('taddressadmin')->insert([
                 'vreceiver_name' =>$user->vname,
                 'vaddress'=>$request->address,
                 'vcrea'=>$request->email,
                 'dcrea'=>Carbon::now(),
-                'id_user'=>$user->id_user,
+                'id_admin'=>$user->id_admin,
                 'istatus_address'=>1,
             ]);
-            DB::table('users')->where(['email'=>$request->email])->update(['istatus_user' => 1]);
+            DB::table('admin')->where(['email_admin'=>$request->email])->update(['istatus_admin' => 1]);
             \DB::table('token_register')->where([
-                'email'=>$request->email
+                'email_admin'=>$request->email
             ])->delete();
 
-            return redirect('login')->with('info', 'Your account has been activated, you can login to our website')->with('verifiedEmail', $request->email);
+            return redirect('loginadmin')->with('info', 'Your account has been activated, you can login to our website')->with('verifiedEmail', $request->email);
         }
     }
-
 }

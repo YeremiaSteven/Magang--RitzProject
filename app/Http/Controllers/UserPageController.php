@@ -83,6 +83,7 @@ class UserPageController extends Controller
         if ($check_id == null){
             DB::table('tcart')->insert([
                 'id_item' => $id,
+                'id_toko' => Auth::user()->id_toko,
                 'id_user' => Auth::user()->id_user,
                 'iquantity' => 1,
                 'iactive' => 1,
