@@ -14,7 +14,7 @@
     <!-- Import font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
-    <title>Register</title>
+    <title>Register Admin</title>
     <style>
       body{
         background-color: #78A3EB;
@@ -49,31 +49,25 @@
       </nav>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-        <div class="container-fluid">
+          <div class="container-fluid">
           <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" class="img-fluid mx-auto d-block mb-2">
-          <a class="navbar-brand ms-1 fw-bolder" href="#">RITZ APPS</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item ms-2 mb-2">
-
-              </li>
-              <li class="nav-item text-center mb-2">
-                <button type="button" class="btn btn-secondary ms-2"><i class="fas fa-shopping-cart me-2"></i>Cart</button>
-              </li>
-              <li class="nav-item text-center mb-2">
-                <button type="button" class="btn btn-outline-secondary ms-2"><i class="fa-regular fa-heart"></i></button>
-              </li>
-              <li class="nav-item text-center">
-                <button type="button" class="btn btn-outline-secondary ms-2"><i class="fa-regular fa-user"></i></button>
-              </li>
-            </ul>
+            <a class="navbar-brand ms-1 fw-bolder" href="#">RITZ APPS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item ms-2 mb-2">
+                  <div class="input-group rounded">
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-    </section>
+        </nav>
+      </section>
+
 
     <!-- Register Form -->
     <section id="RegisterForm">
@@ -87,7 +81,7 @@
             <div class="row">
                 <p class="h2 fw-bold mt-3">Register Admin</p>
             </div>
-            <form action="<?php echo e(route('verified.account.link')); ?>" method="POST">
+            <form action="<?php echo e(route('verified.admin_account.link')); ?>" method="POST">
                 <?php if(Session::get('fail')): ?>
                 <div class="alert alert-danger">
                   <?php echo e(Session::get('fail')); ?>
@@ -112,8 +106,8 @@
                  <?php echo csrf_field(); ?>
                 <div class="form-group row mt-3">
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Fullname</label>
-                        <input name="nama" type="text" class="form-control" required placeholder="Enter your fullname">
+                        <label for="exampleFormControlInput1" class="form-label">Store Name</label>
+                        <input name="storename" type="text" class="form-control" required placeholder="Enter your store name">
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Email</label>

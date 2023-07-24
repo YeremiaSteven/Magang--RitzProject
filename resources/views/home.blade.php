@@ -113,23 +113,27 @@
                                 <div class="col-md">
                                     <div class="card w-100 shadow" style="width: 18rem; height: 100%;">
                                         @if ($u['picture'] != null)
+                                        <a href="{{url('product-info').'/'.$u['id_item']}}">
                                         <img
                                             src="{{asset('assets/picture').'/'.($u['picture'])}}"
                                             class="card-img-top"
                                             alt="..."
                                             style="width:100%; height:250px"
                                         />
+                                        </a>
                                         @endif
                                         @if ($u['picture'] == null)
+                                        <a href="{{url('product-info').'/'.$u['id_item']}}">
                                         <img
                                             src="{{asset('assets/picture/blank_profilepicture.png')}}"
                                             class="card-img-top"
                                             alt="..."
                                             style="width:100%; height:250px"
                                         />
+                                        </a>
                                         @endif
                                         <div class="card-body">
-                                            <h5 class="card-title fw-bold">{{$u['vname_item']}}</h5>
+                                            <h5 class="card-title fw-bold"><a href="{{url('product-info').'/'.$u['id_item']}}">{{$u['vname_item']}}</a></h5>
                                             <p class="text-muted card-text " style="font-size: 1rem">
                                                 {{$u['vdescription']}}
                                             </p>
@@ -167,7 +171,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-md text-end">
-                                                    <a href="{{url('product-info').'/'.$u['id_item']}}">
+                                                    <a href="/wishlist/add/{id}">
                                                         <button
                                                             type="button"
                                                             class="btn btn-outline-primary d-block w-100"
@@ -211,23 +215,27 @@
                 <div class="col-md-3 mb-3">
                     <div class="card w-100 shadow" style="width: 18rem; height: 100%">
                         @if ($u['picture'] != null)
+                        <a href="{{url('product-info').'/'.$u['id_item']}}">
                         <img
                             src="{{asset('assets/picture').'/'.($u['picture'])}}"
                             class="card-img-top"
                             alt="..."
                             style="width:100%; height:250px"
                         />
+                        </a>
                         @endif
                         @if ($u['picture'] == null)
+                        <a href="{{url('product-info').'/'.$u['id_item']}}">
                         <img
                             src="{{asset('assets/picture/blank_profilepicture.png')}}"
                             class="card-img-top"
                             alt="..."
                             style="width:100%; height:250px"
                         />
+                        </a>
                         @endif
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">{{$u['vname_item']}}</h5>
+                            <h5 class="card-title fw-bold"><a href="{{url('product-info').'/'.$u['id_item']}}">{{$u['vname_item']}}</a></h5>
                             <p class="text-muted card-text " style="font-size: 1rem">
                                 {{$u['vdescription']}}
                             </p>
@@ -267,7 +275,7 @@
                                     </a>
                                 </div>
                                 <div class="col-md text-end">
-                                    <a href="product-info/{{$u['id_item']}}">
+                                    <a href="/wishlist/add/{id}">
                                     <button
                                         type="button"
                                         class="btn btn-outline-primary d-block w-100"

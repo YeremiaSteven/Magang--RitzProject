@@ -14,7 +14,7 @@
     <!-- Import font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
-    <title>Register</title>
+    <title>Login</title>
     <style>
       body{
         background-color: #78A3EB;
@@ -69,15 +69,88 @@
       </section>
 
 
- <!-- Login Form -->
- <section id="LoginForm">
+      <!-- Login Form -->
+      <section id="LoginForm">
         <div class="container text-light">
           <div class="row align-items-center pt-5 pb-5">
             <div class="col-md-6 mt-5">
-            <img src="assets/img/Register-1.png" alt="Background Register" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
+              <img src="assets/img/Register-1.png" alt="Background Register" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
               <p class="h1 fw-bolder">SELAMAT DATANG DAN BERBELANJA!</p>
             </div>
+
             <div class="col-md-6">
+                <div class="row">
+                <p class="h2 fw-bold mt-3">Login</p>
+                </div>
+                <form method="POST" action="{{ url('proses_login')}}">
+                  @if (Session::get('info'))
+                    <div class="alert alert-info">
+                      {{ Session::get('info') }}
+                    </div>
+                  @endif
+                  @csrf
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                    <input id="email" type="text" class="form-control " name="email" value="{{ old('email') }}" placeholder="Masukkan Email" required autocomplete="email" autofocus>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input id="password" type="password" class="form-control " name="password" placeholder="Masukan Password" required autocomplete="current-password">
+                  </div>
+                  <div class="row mt-3">
+                    <p class="small text-end"><a href="forgot_password" class="text-light fw-bold" >Forgot Password</a></p>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-user btn-block">
+                      Login
+                  </button>
+                </form>
+                <div class="row mt-3">
+                  <p class="small text-center">Don't have an account yet? <a href="register" class="text-light fw-bold" >Register</a></p>
+                </div>
+            </div>
+
+            {{-- <div id="tambah" class="modal fade" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">Please fill all data requirements</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                  <form action="/login/store" method="POST">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" name="nama" class="form-control"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input type="text" name="username" class="form-control"  required>
+                    </div>
+                    <div class="form-group">
+                      <label for="">No Telp</label>
+                      <input type="number" name="notelp" class="form-control"  required>
+                  </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" name="password" class="form-control"  required>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Register</button>
+                  </form>
+                </div>
+              </div> --}}
+            </div>
+
+
+            <!-- <div class="col-md-6">
               <div class="row">
                 <p class="h2 fw-bold mt-3">Login</p>
               </div>
@@ -90,14 +163,14 @@
               <div class="row">
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                  <input type="password" class="form-control" id="email" placeholder="Enter your password">
                 </div>
               </div>
               <div class="row">
                 <div class="col text-center">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComponent"><b>LOGIN</b></button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComponent"><b>LOGIN</b></button> -->
                   <!-- Modal -->
-                  <div class="modal fade" id="modalComponent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <!-- <div class="modal fade" id="modalComponent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-body">
@@ -109,12 +182,13 @@
                 </div>
               </div>
               <div class="row mt-3">
-                <p class="small text-center">Don't have an account yet? <a href="register" class="text-light fw-bold">Register</a></p>
+                <p class="small text-center">Don't have an account yet? <a href="#" class="text-light fw-bold">Register</a></p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
+
 
     <!-- footer -->
     <section id="footer">
@@ -128,7 +202,7 @@
               <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <!-- Content -->
                 <h6 class="text-uppercase fw-bold mb-4">
-                  <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" style="width: 12%;"> Tokobiru
+                  <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" style="width: 12%;"> RITZ APPS
                 </h6>
                 <p>
                 Transform your lifestyle and elevate your shopping experience with our exclusive collection of lifestyle products, available now on our e-commerce platform. 

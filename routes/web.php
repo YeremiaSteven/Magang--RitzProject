@@ -19,17 +19,14 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/ ', function () {
-    return redirect('loginadmin');
-});
 
 //Register user
 Route::get('register', $ctrl.'\RegisterController@index')->name('verified.account.form');
 Route::post('register', $ctrl.'\RegisterController@Register')->name('verified.account.link');
 
 //Register admin
-Route::get('registeradmin', $ctrl.'\RegisterAdminController@index')->name('verified.account.form');
-Route::post('registeradmin', $ctrl.'\RegisterAdminController@Register')->name('verified.account.link');
+Route::get('registeradmin', $ctrl.'\RegisterAdminController@index')->name('verified.admin_account.form');
+Route::post('registeradmin', $ctrl.'\RegisterAdminController@RegisterAdmin')->name('verified.admin_account.link');
 
 // Route::post('register','');
 
@@ -40,19 +37,21 @@ Route::get('reset_password/reset/{token}', $ctrl.'\PasswordController@index2')->
 Route::post('reset_password/reset', $ctrl.'\PasswordController@resetPassword')->name('reset.password');
 
 Route::get('user_store', $ctrl.'\RegisterController@RegisterLink')->name('store.user');
+Route::get('admin_store', $ctrl.'\RegisterAdminController@RegisterLinkAdmin')->name('admin.user');
 
 Route::get('login',$ctrl.'\LoginController@index')
--> middleware('guest')
+->middleware('guest')
 ->name('login');
 
 Route::post('proses_login', $ctrl.'\LoginController@authenticate');
+Route::post('proses_login_admin', $ctrl.'\LoginAdminController@authenticateAdmin');
 
-// Route::get('admin', $ctrl.'\LoginController@dashboard_admin')->middleware('cek_login:admin');
+
+//Route::get('admin', $ctrl.'\LoginAdminController@dashboard_admin')->middleware('Cek_admin:admin');
 // Route::get('staff', $ctrl.'\LoginController@dashboard_staff')->middleware('cek_login:staff');
 // Route::get('home', $ctrl.'\LoginController@dashboard_home')->middleware('cek_login:home');
 
 // Route::get('/admin/edit/{id}', $ctrl.'\UserController@edit')->middleware('cek_login:admin');
-
 
 // router admin
 Route::group(['middleware' => ['auth']], function () {
@@ -172,9 +171,11 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 //Route Admin
-Route::get('loginadmin',$ctrl.'\LoginController@indextk')
+Route::get('loginadmin',$ctrl.'\LoginAdminController@index')
 -> middleware('guest')
 ->name('loginadmin');
+
+
 
 Route::get('logout',$ctrl.'\LogoutController@logout');
 

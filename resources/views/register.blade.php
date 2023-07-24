@@ -49,31 +49,24 @@
       </nav>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-        <div class="container-fluid">
+          <div class="container-fluid">
           <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" class="img-fluid mx-auto d-block mb-2">
-          <a class="navbar-brand ms-1 fw-bolder" href="#">RITZ APPS</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item ms-2 mb-2">
-
-              </li>
-              <li class="nav-item text-center mb-2">
-                <button type="button" class="btn btn-secondary ms-2"><i class="fas fa-shopping-cart me-2"></i>Cart</button>
-              </li>
-              <li class="nav-item text-center mb-2">
-                <button type="button" class="btn btn-outline-secondary ms-2"><i class="fa-regular fa-heart"></i></button>
-              </li>
-              <li class="nav-item text-center">
-                <button type="button" class="btn btn-outline-secondary ms-2"><i class="fa-regular fa-user"></i></button>
-              </li>
-            </ul>
+            <a class="navbar-brand ms-1 fw-bolder" href="#">RITZ APPS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item ms-2 mb-2">
+                  <div class="input-group rounded">
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-    </section>
+        </nav>
+      </section>
 
     <!-- Register Form -->
     <section id="RegisterForm">
@@ -212,7 +205,7 @@
               <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                 <!-- Content -->
                 <h6 class="text-uppercase fw-bold mb-4">
-                  <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" style="width: 12%;"> Tokobiru
+                  <img src="assets/img/logo_tokobiru.png" alt="Logo Tokobiru" style="width: 12%;"> RITZ APPS
                 </h6>
                 <p>
                 Transform your lifestyle and elevate your shopping experience with our exclusive collection of lifestyle products, available now on our e-commerce platform. 

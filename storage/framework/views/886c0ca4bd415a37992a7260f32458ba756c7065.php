@@ -78,14 +78,28 @@
                 <?php $__currentLoopData = $item; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-md-3 mb-3">
                     <div class="card w-100 shadow" style="width: 18rem; height: 100%">
+                    <?php if($u['picture'] != null): ?>
+                        <a href="<?php echo e(url('product-info').'/'.$u['id_item']); ?>">
                         <img
                             src="<?php echo e(asset('assets/picture').'/'.($u['picture'])); ?>"
                             class="card-img-top"
                             alt="..."
                             style="width:100%; height:250px"
                         />
+                        </a>
+                        <?php endif; ?>
+                        <?php if($u['picture'] == null): ?>
+                        <a href="<?php echo e(url('product-info').'/'.$u['id_item']); ?>">
+                        <img
+                            src="<?php echo e(asset('assets/picture/blank_profilepicture.png')); ?>"
+                            class="card-img-top"
+                            alt="..."
+                            style="width:100%; height:250px"
+                        />
+                        </a>
+                        <?php endif; ?>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold"><?php echo e($u['vname_item']); ?></h5>
+                            <h5 class="card-title fw-bold"><a href="<?php echo e(url('product-info').'/'.$u['id_item']); ?>"><?php echo e($u['vname_item']); ?></a></h5>
                             <p class="text-muted card-text " style="font-size: 1rem">
                                 <?php echo e($u['vdescription']); ?>
 
@@ -110,12 +124,12 @@
                                     </a>
                                 </div>
                                 <div class="col-md text-end">
-                                    <a href="/product-info/<?php echo e($u['id_item']); ?>">
+                                    <a href="/wishlist/add/{id}">
                                     <button
                                         type="button"
                                         class="btn btn-outline-primary d-block w-100"
                                     >
-                                        See More
+                                        Wish List
                                     </button>
                                     </a>
                                 </div>

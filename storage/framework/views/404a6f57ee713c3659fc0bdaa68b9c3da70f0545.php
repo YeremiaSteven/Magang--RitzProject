@@ -14,7 +14,7 @@
     <!-- Import font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
-    <title>Register</title>
+    <title>Login Admin</title>
     <style>
       body{
         background-color: #78A3EB;
@@ -68,17 +68,56 @@
         </nav>
       </section>
 
- <!-- Login Form -->
- <section id="LoginForm">
+      <!-- Login Form -->
+      <section id="LoginForm">
         <div class="container text-light">
           <div class="row align-items-center pt-5 pb-5">
             <div class="col-md-6 mt-5">
-            <img src="assets/img/Register-1.png" alt="Background Register" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
-              <p class="h1 fw-bolder">SELAMAT DATANG DAN BERBELANJA!</p>
+              <img src="assets/img/Register-1.png" alt="Background Register" class="img-fluid mx-auto d-block mb-3" style="max-width: 30%;">
+              <p class="h1 fw-bolder">SELAMAT DATANG PARTNER!</p>
             </div>
+
             <div class="col-md-6">
-              <div class="row">
+                <div class="row">
                 <p class="h2 fw-bold mt-3">Login Admin</p>
+                </div>
+                <form method="POST" action="<?php echo e(url('proses_login_admin')); ?>">
+                  <?php if(Session::get('info')): ?>
+                    <div class="alert alert-info">
+                      <?php echo e(Session::get('info')); ?>
+
+                    </div>
+                  <?php endif; ?>
+                  <?php echo csrf_field(); ?>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                    <input id="email" type="text" class="form-control " name="email" value="<?php echo e(old('email')); ?>" placeholder="Masukkan Email" required autocomplete="email" autofocus>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input id="password" type="password" class="form-control " name="password" placeholder="Masukan Password" required autocomplete="current-password">
+                  </div>
+                  <div class="row mt-3">
+                    <p class="small text-end"><a href="forgot_password" class="text-light fw-bold" >Forgot Password</a></p>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-user btn-block">
+                      Login
+                  </button>
+                </form>
+                <div class="row mt-3">
+                  <p class="small text-center">Don't have an account yet? <a href="registeradmin" class="text-light fw-bold" >Register Admin</a></p>
+                </div>
+            </div>
+
+            
+            </div>
+
+
+            <!-- <div class="col-md-6">
+              <div class="row">
+                <p class="h2 fw-bold mt-3">Login</p>
               </div>
               <div class="row mt-3">
                 <div class="mb-3">
@@ -89,14 +128,14 @@
               <div class="row">
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                  <input type="password" class="form-control" id="email" placeholder="Enter your password">
                 </div>
               </div>
               <div class="row">
                 <div class="col text-center">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComponent"><b>LOGIN</b></button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComponent"><b>LOGIN</b></button> -->
                   <!-- Modal -->
-                  <div class="modal fade" id="modalComponent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <!-- <div class="modal fade" id="modalComponent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
                         <div class="modal-body">
@@ -108,9 +147,9 @@
                 </div>
               </div>
               <div class="row mt-3">
-                <p class="small text-center">Don't have an account yet? <a href="registeradmin" class="text-light fw-bold">Register Admin</a></p>
+                <p class="small text-center">Don't have an account yet? <a href="#" class="text-light fw-bold">Register</a></p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
