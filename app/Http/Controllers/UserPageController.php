@@ -12,8 +12,11 @@ class UserPageController extends Controller
 {
 
     public function flash_sale(){
+        $wishlist = DB::table('twishlist')->where('id_item')->first();
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-        $count = DB::table('titem_hdr')->where('iflashsale',1)->select('titem_hdr.*')->get();
+        $count = DB::table('titem_hdr')->where('iflashsale',1)
+                ->join('users', 'titem_hdr.id_user', '=', 'users.id_user' )
+                ->select('titem_hdr.*', 'users.vname')->get();
         $disc = DB::table('tglobalsetting')->select('dvalue')->where('vname','disc_flashsale')->first();
         $item = [];
 
@@ -26,6 +29,7 @@ class UserPageController extends Controller
                 $item[$i]['picture'] = null;
             }
             $item[$i]['id_item'] = $u->id_item;
+            $item[$i]['vname'] = $u->vname;
             $item[$i]['vname_item'] = $u->vname_item;
             $item[$i]['id_category'] = $u->id_category;
             $item[$i]['vdescription'] = $u->vdescription;
@@ -36,12 +40,15 @@ class UserPageController extends Controller
             $item[$i]['iflashsale'] = $u->iflashsale;
             $item[$i]['iactive'] = $u->iactive;
         }
-        return view('flash_sale',compact ('item','nama_web'));
+        return view('flash_sale',compact ('item','wishlist','nama_web'));
     }
 
     public function product_more(){
+        $wishlist = DB::table('twishlist')->where('id_item')->first();
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-        $count = DB::table('titem_hdr')->where('iflashsale',0)->select('titem_hdr.*')->get();
+        $count = DB::table('titem_hdr')->where('iflashsale',0)
+                ->join('users', 'titem_hdr.id_user', '=', 'users.id_user' )
+                ->select('titem_hdr.*', 'users.vname')->get();
 
         $item = [];
 
@@ -54,6 +61,7 @@ class UserPageController extends Controller
                 $item[$i]['picture'] = null;
             }
             $item[$i]['id_item'] = $u->id_item;
+            $item[$i]['vname'] = $u->vname;
             $item[$i]['vname_item'] = $u->vname_item;
             $item[$i]['id_category'] = $u->id_category;
             $item[$i]['vdescription'] = $u->vdescription;
@@ -64,7 +72,7 @@ class UserPageController extends Controller
             $item[$i]['iflashsale'] = $u->iflashsale;
             $item[$i]['iactive'] = $u->iactive;
         }
-        return view('product_more',compact ('item','nama_web'));
+        return view('product_more',compact ('item','wishlist','nama_web'));
     }
 
     public function detail_info($id)
@@ -72,7 +80,9 @@ class UserPageController extends Controller
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
         $picture = DB::table('titem_dtl')->where('id_item', $id)->select('picture')->orderBy('id_itemdtl', 'asc')->first();
         $disc = DB::table('tglobalsetting')->select('dvalue')->where('vname','disc_flashsale')->first();
-        $detail_item = DB::table('titem_hdr')->where('id_item', $id)->first();
+        $detail_item = DB::table('titem_hdr')->where('id_item', $id)
+            ->join('users', 'titem_hdr.id_user', '=', 'users.id_user' )
+            ->select('titem_hdr.*', 'users.vname')->first();
         $wishlist = DB::table('twishlist')->where('id_item', $id)->first();
         return view('product_detail',compact('detail_item','picture','disc','nama_web','wishlist'));
     }
@@ -83,7 +93,7 @@ class UserPageController extends Controller
         if ($check_id == null){
             DB::table('tcart')->insert([
                 'id_item' => $id,
-                'id_toko' => Auth::user()->id_toko,
+                'id_user' => Auth::user()->id_user,
                 'id_user' => Auth::user()->id_user,
                 'iquantity' => 1,
                 'iactive' => 1,
@@ -101,7 +111,7 @@ class UserPageController extends Controller
     public function cart()
     {
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-        $count = DB::table('tcart')->where('id_user', Auth::user()->id_user)
+        $count = DB::table('tcart')->where('id_cart', Auth::user()->id_user)
                 ->join('titem_hdr', 'tcart.id_item', '=' , 'titem_hdr.id_item')
                 ->select('tcart.*', 'titem_hdr.*')->get();
         $item =[];
@@ -173,6 +183,7 @@ class UserPageController extends Controller
     {
         return view('checkout');
     }
+
     public function wishlist()
     {
         $wishlist = DB::table('twishlist')->where('id_user',Auth::user()->id_user)
@@ -231,6 +242,7 @@ class UserPageController extends Controller
                 'id_item' => $id,
                 'id_user' => Auth::user()->id_user,
                 'vcrea' => Auth::user()->email,
+                'dmodi' => Auth::user()->$wishlist, 
                 'dcrea' => Carbon::now(),
             ]);
         }
