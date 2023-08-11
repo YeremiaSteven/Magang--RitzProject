@@ -29,13 +29,14 @@ class RegisterAdminController extends Controller
         $email = $request->email;
 
     // insert data ke table admin
-        $check_insert = DB::table('admin')->insert([
+        $check_insert = DB::table('users')->insert([
             'vname' => $request->storename,
-            'email_admin' => $request->email,
+            'email' => $request->email,
+            'vaddress' =>$request->address,
             'vno_telp' => $request->notelp,
-            'password_admin' => bcrypt($request->password),
+            'password' => bcrypt($request->password),
             'profile_picture' => 'blank_profilepicture.png',
-            'istatus_admin' => 0,
+            'istatus_user' => 0,
             'id_role' => 44441,
             'vcrea' => $request->email,
             'dcrea' => Carbon::now(),
@@ -45,8 +46,8 @@ class RegisterAdminController extends Controller
             Alert::error('Error', 'Data cannot be store to Database');
         } else {
             $token = Str::random(4);
-            $register = DB::table('token_register')->insert([
-                'email_admin' => $request->email,
+            $register = DB::table('token_register_1')->insert([
+                'email' => $request->email,
                 'token' => $token,
                 'created_at' => Carbon::now(),
             ]);
@@ -68,9 +69,9 @@ class RegisterAdminController extends Controller
 
     public function RegisterLinkAdmin(Request $request, $token = null){
 
-        $user = DB::table('admin')->where(['email_admin'=>$request->email])->first();
-        $check_token = \DB::table('token_register')->where([
-            'email_admin'=>$request->email,
+        $user = DB::table('users')->where(['email'=>$request->email])->first();
+        $check_token = \DB::table('token_register_1')->where([
+            'email'=>$request->email,
             'token'=>$request->token,
         ])->first();
 
@@ -78,17 +79,17 @@ class RegisterAdminController extends Controller
         if(!$check_token){
             return back()->withInput()->with('fail', 'Invalid token');
         }else{
-            DB::table('taddressadmin')->insert([
+            DB::table('taddress')->insert([
                 'vreceiver_name' =>$user->vname,
                 'vaddress'=>$request->address,
                 'vcrea'=>$request->email,
                 'dcrea'=>Carbon::now(),
-                'id_admin'=>$user->id_admin,
+                'id_user'=>$user->id_user,
                 'istatus_address'=>1,
             ]);
-            DB::table('admin')->where(['email_admin'=>$request->email])->update(['istatus_admin' => 1]);
-            \DB::table('token_register')->where([
-                'email_admin'=>$request->email
+            DB::table('users')->where(['email'=>$request->email])->update(['istatus_user' => 1]);
+            \DB::table('token_register_1')->where([
+                'email'=>$request->email
             ])->delete();
 
             return redirect('loginadmin')->with('info', 'Your account has been activated, you can login to our website')->with('verifiedEmail', $request->email);

@@ -18,11 +18,10 @@ class Cek_login
     public function handle(Request $request, Closure $next, $role)
     {
         $user = Auth::user();
-        $admin = Auth::user();
 
         if($role == 'admin'){
             $role = 44441;
-        } else if ($role == 'staff'){
+        } else if ($role == 'admin'){
             $role = 44442;
         } else if ($role == 'home'){
             $role = 44443;
@@ -36,12 +35,7 @@ class Cek_login
                 return $next($request);
             }
             // 
-        } else if ($admin->istatus_admin == 1){
-            if($admin->id_role == $role){
-                return $next($request);
-            }
-        }
-
+        } 
         return redirect()->back();
     }
 }
