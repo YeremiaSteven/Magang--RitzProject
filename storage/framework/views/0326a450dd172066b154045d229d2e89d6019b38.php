@@ -38,8 +38,9 @@
 				
                 <td><?php echo e($u->dmodi); ?></td>
 				
-				<td class="text-center"><a href="admin/edit/<?php echo e($u->id_user); ?>"><i class="fa-regular fa-pen-to-square me-2"></i></a>
-				<a href="admin/delete/<?php echo e($u->id_user); ?>"><i class="fa-solid fa-trash me-2"></i></a>
+				<td class="text-center">
+					<a href="admin/edit/<?php echo e($u->id_user); ?>"><i class="fa-regular fa-pen-to-square me-2"></i></a>
+					<a href="admin/delete/<?php echo e($u->id_user); ?>"><i class="fa-solid fa-trash me-2"></i></a>
 				</td>
 			</tr>
 			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

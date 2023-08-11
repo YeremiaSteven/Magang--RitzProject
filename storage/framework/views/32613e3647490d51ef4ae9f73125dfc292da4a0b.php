@@ -13,6 +13,22 @@
                     <input type="text" name="id" value="<?php echo e($master->id_item); ?>" hidden>
                     <div class="input-group mb-3 mt-3">
                         <span class="input-group-text w-50" id="inputGroup-sizing-default"
+                          >Store Name</span
+                        >
+                        <select name="store" class="form-select" aria-label="Default select example">
+                            <?php $__currentLoopData = $store; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($item->id_user== $master->id_user): ?>
+                                    <option value="<?php echo e($item->id_user); ?>" selected><?php echo e($item->vname); ?></option>
+                                <?php endif; ?>
+                                <?php if($item->id_user != $master->id_user): ?>
+                                    <option value="<?php echo e($item->id_user); ?>"><?php echo e($item->vname); ?></option>
+                                <?php endif; ?>
+
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3 mt-3">
+                        <span class="input-group-text w-50" id="inputGroup-sizing-default"
                           >Item Name</span
                         >
                         <input

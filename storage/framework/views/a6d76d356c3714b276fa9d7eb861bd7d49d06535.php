@@ -53,6 +53,10 @@
                                   <?php echo e($u['vname_item']); ?>
 
                                 </h5>
+                                <h6 class="text-muted card-text">
+                                  <?php echo e($u['vname']); ?>
+
+                                </h6>
                                 <p class="text-muted card-text">
                                     <?php echo e($u['vdescription']); ?>
 

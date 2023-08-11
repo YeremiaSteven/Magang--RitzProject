@@ -9,14 +9,17 @@
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#admin_store">Tambah Data</button>
 		</div>
 		<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
-		  <table id="example" class="table table-bordered">
+		  <table id="example" class="table table-stripped" style="width:100%">
 			<thead>
 			  <tr class="text-center">
 				<th scope="col">Id</th>
 				<th scope="col">Name Toko</th>
-				<th scope="col">No Handphone Toko</th>
+				<th scope="col">Role</th>
+				<th scope="col">Active</th>
 				<th scope="col">Alamat Toko</th>
-				<th scope="col">Rate Toko</th>
+				<th scope="col">No Handphone Toko</th>
+				<th scope="col">Email</th>
+				<th scope="col">Modified by</th>
 				<th scope="col">Last Update</th>
 				<th scope="col">Action</th>
 			  </tr>
@@ -25,13 +28,21 @@
 				<?php $__currentLoopData = $master; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 				<tr>
 					<td><?php echo e(++$i); ?></td>
-					<td><?php echo e($u->vname_toko); ?></td>
-					<td><?php echo e($u->vaddress_toko); ?></td>
-					<td><?php echo e($u->vno_telptoko); ?></td>
-					<td><?php echo e($u->irate_toko); ?></td>
+					<td><?php echo e($u->vname); ?></td>
+					<td><?php echo e($u->vrole_name); ?></td>
+					<td><?php echo e($u->istatus_user); ?></td>
+					<td><?php echo e($u->vaddress); ?></td>
+					<td><?php echo e($u->vno_telp); ?></td>
+					<td><?php echo e($u->email); ?></td>
+					<td><?php echo e($u->vmodi); ?></td>
+					
 					<td><?php echo e($u->dmodi); ?></td>
-					<td class="text-center"><a href="/master/toko/edit/<?php echo e($u->id_toko); ?>"><i class="fa-regular fa-pen-to-square me-2"></i></a><a href="/master/header/delete/<?php echo e($u->id_item); ?>"><i class="fa-solid fa-trash me-2"></i></a><a href="detail/<?php echo e($u->id_item); ?>"><i class="fa fa-info-circle me-2" aria-hidden="true"></i></a></td>
-				</tr>
+					
+						<td class="text-center">
+							<a href="/master/toko/edit/<?php echo e($u->id_user); ?>"><i class="fa-regular fa-pen-to-square me-2"></i></a>
+							<a href="/master/toko/delete/<?php echo e($u->id_user); ?>"><i class="fa-solid fa-trash me-2"></i></a>
+						</td>
+					</tr>
 				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 			</tbody>
 		  </table>
@@ -45,7 +56,7 @@
 	<div class="modal-dialog">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLabel">Insert Item</h5>
+		  <h5 class="modal-title" id="exampleModalLabel">Insert Store</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
@@ -58,7 +69,7 @@
                     </div>
 					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Address Toko</label>
-                        <input name="address type="text" class="form-control" placeholder="Enter the Address Toko" required>
+                        <input name="address" type="text" class="form-control" placeholder="Enter the Address Toko" required>
                     </div>
 					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Phone Number</label>

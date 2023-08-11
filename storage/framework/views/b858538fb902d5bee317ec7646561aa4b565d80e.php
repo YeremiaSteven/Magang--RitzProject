@@ -9,10 +9,11 @@
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#admin_store">Tambah Data</button>
 		</div>
 		<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
-		  <table id="example" class="table table-bordered">
+		  <table id="example" class="table table-stripped" style="width:100%">
 			<thead>
 			  <tr class="text-center">
 				<th scope="col">Id</th>
+				<th scope="col">Store Name</th>
 				<th scope="col">Item Name</th>
 				<th scope="col">Item Category</th>
 				<th scope="col">Description</th>
@@ -30,6 +31,7 @@
 				<?php $__currentLoopData = $master; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 				<tr>
 					<td><?php echo e(++$i); ?></td>
+					<td><?php echo e($u->vname); ?></td>
 					<td><?php echo e($u->vname_item); ?></td>
 					<td><?php echo e($u->vcategory); ?></td>
 					<td><?php echo e($u->vdescription); ?></td>
@@ -62,7 +64,14 @@
 			<form action="<?php echo e(url('master/header/store')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <div class="form-group row mt-3">
-                    <div class="mb-3">
+					<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Nama Toko</label>
+							<?php $__currentLoopData = $store; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <input type = "hidden" id="id_user" name= "id_user" value="<?php echo e($item->id_user); ?>"></input> <br/><?php echo e($item->vname); ?>
+
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Item name</label>
                         <input name="nama" type="text" class="form-control" placeholder="Enter the Item Name" required>
                     </div>

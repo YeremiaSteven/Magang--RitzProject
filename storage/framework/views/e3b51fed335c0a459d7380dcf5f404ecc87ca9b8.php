@@ -57,6 +57,10 @@
                                 <?php echo e($u['vdescription']); ?>
 
                             </p>
+                            <p class="text-muted card-text " style="font-size: 1rem">
+                                <?php echo e($u['vname']); ?>
+
+                            </p>
                             <img src="Assets/img/Review Flash Sale-01.png" alt="" />
                             <div class="row">
                                 <div class="col-md">
@@ -79,14 +83,27 @@
                                     </a>
                                 </div>
                                 <div class="col-md text-end">
-                                    <a href="/wishlist/add/{id}">
+                                <?php if(is_null($wishlist)): ?>
+                                  <a href="/wishlist/add/<?php echo e($u['id_item']); ?>">
                                     <button
-                                        type="button"
-                                        class="btn btn-outline-primary d-block w-100"
-                                    >
-                                        Wish List
+                                    type="button"
+                                    class="btn btn-outline-secondary d-bloxk w-100">
+                                    <i class="fa-solid fa-heart" style="color: #6b9bd0"></i>
+                                      Wishlist
                                     </button>
+                                  </a>
+                                  <?php endif; ?>   
+                                </div>
+                                <div class="text-muted small">
+                                  <?php if(!is_null($wishlist)): ?>
+                                    <a href="/wishlist/add/<?php echo e($u['id_item']); ?>">
+                                      <button
+                                      type="button"
+                                      class="btn btn-outline-secondary d-bloxk w-100">
+                                        <i class="fa-solid fa-heart" style="color: red"></i> Wishlist
+                                      </button>
                                     </a>
+                                  <?php endif; ?>
                                 </div>
                             </div>
                         </div>
