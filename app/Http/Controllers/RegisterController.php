@@ -24,6 +24,7 @@ class RegisterController extends Controller
             'notelp'=>'required|min:11',
             'address'=>'required',
             'password'=>'required|min:8',
+            'date' => 'required',
         ]);
 
         $email = $request->email;
@@ -32,7 +33,9 @@ class RegisterController extends Controller
         $check_insert = DB::table('users')->insert([
             'vname' => $request->nama,
             'email' => $request->email,
+            'vaddress' => $request->address,
             'vno_telp' => $request->notelp,
+            'dbirthday' => $request->date,
             'password' => bcrypt($request->password),
             'profile_picture' => 'blank_profilepicture.png',
             'istatus_user' => 0,
@@ -40,8 +43,6 @@ class RegisterController extends Controller
             'vcrea' => $request->email,
             'dcrea' => Carbon::now(),
         ]);
-
-        
         
         if (!$check_insert){
             Alert::error('Error', 'Data cannot be store to Database');

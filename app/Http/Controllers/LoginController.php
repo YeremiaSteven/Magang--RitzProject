@@ -31,10 +31,10 @@ class LoginController extends Controller
             // Auth::guard('web')->login($user);
             $user = Auth::user();
             if ($user->istatus_user == 1){
-                if ($user->id_role == 44441){
+                if ($user->id_role == 44443){
                     return redirect()->intended('admin');
                  } elseif ($user->id_role == 44442){
-                    return redirect()->intended('staff');
+                    return redirect()->intended('admin');
                  } elseif ($user->id_role == 44443){
                     return redirect()->intended('home'); // user
                  }
@@ -48,31 +48,18 @@ class LoginController extends Controller
         return back();
     }
 
-    
-
-    public function dashboard_admin(Request $request)
-    {
-        $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-        $user = User::join('trole', 'users.id_role', '=', 'trole.id_role')->get(['users.*', 'trole.vrole_name']);
-        return view('admin',compact ('user','nama_web'));
-
-    }
-
-    public function dashboard_staff(Request $request)
-    {
-
-        return view('staff');
-
-    }
-
     public function dashboard_home(Request $request)
     {
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-
+        $wishlist = DB::table('twishlist')->where('id_item', $request)->first();
         //count for displaying flashsale item (limit item = 4)
-        $count = DB::table('titem_hdr')->where('iflashsale',1)->select('titem_hdr.*')->orderBy('dmodi', 'desc')->limit(4)->get();
+        $count = DB::table('titem_hdr')->where('iflashsale',1)
+                ->join('users', 'titem_hdr.id_user', '=', 'users.id_user' )
+                ->select('titem_hdr.*', 'users.vname')->orderBy('dmodi', 'desc')->limit(4)->get();
         //count2 for displaying all item (limit item = 8)
-        $count2 = DB::table('titem_hdr')->where('iflashsale',0)->select('titem_hdr.*')->orderBy('dmodi', 'asc')->limit(8)->get();
+        $count2 = DB::table('titem_hdr')->where('iflashsale',0)
+                ->join('users', 'titem_hdr.id_user', '=', 'users.id_user' )
+                ->select('titem_hdr.*', 'users.vname')->orderBy('dmodi', 'asc')->limit(8)->get();
 
         //item is array for count
         $item = [];
@@ -93,6 +80,7 @@ class LoginController extends Controller
                 $item[$i]['picture'] = null;
             }
             $item[$i]['id_item'] = $u->id_item;
+            $item[$i]['vname'] = $u->vname;
             $item[$i]['vname_item'] = $u->vname_item;
             $item[$i]['id_category'] = $u->id_category;
             $item[$i]['vdescription'] = $u->vdescription;
@@ -114,6 +102,7 @@ class LoginController extends Controller
                 $item2[$i]['picture'] = null;
             }
             $item2[$i]['id_item'] = $u->id_item;
+            $item2[$i]['vname'] = $u->vname;
             $item2[$i]['vname_item'] = $u->vname_item;
             $item2[$i]['id_category'] = $u->id_category;
             $item2[$i]['vdescription'] = $u->vdescription;
@@ -124,7 +113,8 @@ class LoginController extends Controller
             $item2[$i]['iactive'] = $u->iactive;
         }
 
-        return view('home',compact ('item','item2','nama_web'));
+        return view('home',compact ('item','item2','wishlist','nama_web'));
 
     }
+   
 }

@@ -90,38 +90,100 @@ class UserPageController extends Controller
     public function add_cart($id)
     {
         $check_id = DB::table('tcart')->where('id_item', $id)->first();
-        if ($check_id == null){
-            DB::table('tcart')->insert([
-                'id_item' => $id,
-                'id_user' => Auth::user()->id_user,
-                'id_user' => Auth::user()->id_user,
-                'iquantity' => 1,
-                'iactive' => 1,
-                'vcrea' => Auth::user()->email,
-                'dcrea' => Carbon::now()
-            ]);
-        } else if ($check_id != null){
-            DB::table('tcart')->increment(
-                'iquantity'
-            );
+        $detail = DB::table('titem_hdr')
+                    ->join('users','titem_hdr.id_user', '=', 'users.id_user')
+                    ->where('titem_hdr.id_item', $id)->first();
+        $id_store = $detail->id_user;
+        
+        //dd($id_store);
+        //dd($detail);
+
+        if($id_store == 55585){
+            if ($check_id == null){
+                //dd($check_id);
+                DB::table('tcart')->insert([
+                    'id_item' => $id,
+                    'id_user' => Auth::user()->id_user,
+                    'iquantity' => 1,
+                    'iactive' => 1,
+                    'vcrea' => Auth::user()->email,
+                    'dcrea' => Carbon::now()
+                ]); 
+            } else if ($check_id != null){
+                DB::table('tcart')->increment(
+                    'iquantity');
+            
+         };
+        } else if ($id_store != 55585){
+            Alert::warning('Warning', 'Sorry only 1 shop can do transactions')->autoclose(3500);
+            return back();
         }
+           
         return redirect('cart');
     }
 
     public function cart()
     {
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
-        $count = DB::table('tcart')->where('id_cart', Auth::user()->id_user)
+        $count = DB::table('tcart')
+                ->where('tcart.id_user', Auth::user()->id_user)
                 ->join('titem_hdr', 'tcart.id_item', '=' , 'titem_hdr.id_item')
-                ->select('tcart.*', 'titem_hdr.*')->get();
+                ->join('users', 'titem_hdr.id_user', '=', 'users.id_user')
+                ->select('tcart.*', 'titem_hdr.*','users.vname')->get();
+       
         $item =[];
+
         //discount for flashsale
         $tsetting = DB::table('tglobalsetting')->where('vname','disc_flashsale')->first();
         $disc = $tsetting->dvalue;
         //discount for member
         $tsetting2 = DB::table('tglobalsetting')->where('vname','disc_member')->first();
         $disc2 = $tsetting2->dvalue;
+        
+        //discount for birthdaycard
+
+        //disount for event
+        $discevent = DB::table('ttransaction_event')
+            ->join('tdiscount','ttransaction_event.id_discount', '=' , 'tdiscount.id_discount' )
+            ->join('tevent', 'ttransaction_event.id_event', '=', 'tevent.id_event')
+            ->join('titem_hdr', 'ttransaction_event.id_item', '=', 'titem_hdr.id_item')
+            ->join('users', 'ttransaction_event.id_user', '=', 'users.id_user')
+            ->select('ttransaction_event.*','tdiscount.*','tevent.*', 'titem_hdr.*', 'users.vname')
+            ->where('status',1)->first();
+            
+        $discevent2 = DB::table('ttransaction_event')
+            ->join('tdiscount','ttransaction_event.id_discount', '=' , 'tdiscount.id_discount' )
+            ->join('tevent', 'ttransaction_event.id_event', '=', 'tevent.id_event')
+            ->join('titem_hdr', 'ttransaction_event.id_item', '=', 'titem_hdr.id_item')
+            ->join('users', 'ttransaction_event.id_user', '=', 'users.id_user')
+            ->select('ttransaction_event.*','tdiscount.*','tevent.*', 'titem_hdr.*', 'users.vname')
+            ->get();
+
+            //dd($discevent);
+        
         foreach ($count as $i => $u){
+            //dd($count);
+            foreach($discevent2 as $x => $y){
+                $discount[$x]['idxDisc'] = $y;
+                if($y != null && $y->status = 1  && strtotime(date('d-m-Y')) >= $y->dstartevent && strtotime(date('d-m-Y')) <= $y->dsendevent
+                && $y::where('id_event', $y->id_event)->where('id_item', $u->id_item)->first() != null)
+                {
+                    $event = $y::where('id_event', $y->id_event)->where('id_item', $u->id_item)->first();
+                    
+                    /*if($event->discount_type = 'percentage'){
+                        $price -= ($price*$event->discount)/100;
+                    }
+                    elseif($event->discount_type == 'amount'){
+                        $price -= $event->discount;
+                    }
+                    $inFlashDeal = true;
+                   */
+    
+                }
+            }
+            //dd($event);
+            //dd($discount);
+
             $item[$i]['index'] = $i;
             $vcategory = DB::table('tcategory')->where('id_category',$u->id_category)->first();
             $picture = DB::table('titem_dtl')->where('id_item', $u->id_item)->select('picture')->orderBy('id_itemdtl', 'asc')->first();
@@ -130,15 +192,19 @@ class UserPageController extends Controller
             } else {
                 $item[$i]['picture'] = null;
             }
+            //dd($discount);
+            //dd($item);
             $item[$i]['id'] = $u->id_item;
             $item[$i]['vname_item'] = $u->vname_item;
+            $item[$i]['vname'] = $u->vname;
             $item[$i]['vcategory'] = $vcategory->vcategory;
             $item[$i]['iquantity'] = $u->iquantity;
             $item[$i]['iprice_after'] = $u->iprice - ($u->iprice * $disc);
             $item[$i]['iprice'] = $u->iprice ;
             $item[$i]['iactive'] = $u->iactive;
         }
-
+       
+        
         $member = DB::table('tmember')->where('id_user', Auth::user()->id_user)->first();
         $address = DB::table('taddress')->where('id_user', Auth::user()->id_user)->where('istatus_address',1)->first();
         $address2 = DB::table('taddress')->where('id_user', Auth::user()->id_user)->get();
@@ -147,10 +213,28 @@ class UserPageController extends Controller
         // $text = "Are you sure you want to check out this item?";
         // confirmDelete($title, $text);
 
-        return view('cart', compact('item','address','address2','member','disc2','nama_web'));
+        return view('cart', compact('item','address','address2','member','discevent','discevent2','disc2','nama_web'));
     }
+
+    public function cart_voucher_select(Request $request)
+    {
+    
+        DB::table('ttransaction_event')->where('status',1)
+                ->update([
+                    'status' => 0
+                ]);
+
+        DB::table('ttransaction_event')->where('id_ttransaction_event',$request->id)
+                ->update([
+                    'status' => 1
+                ]);
+
+        return back();
+    }
+    
     public function cart_address_select(Request $request)
     {
+    
         DB::table('taddress')->where('istatus_address',1)
                 ->update([
                     'istatus_address' => 0
@@ -186,9 +270,9 @@ class UserPageController extends Controller
 
     public function wishlist()
     {
-        $wishlist = DB::table('twishlist')->where('id_user',Auth::user()->id_user)
+        $wishlist = DB::table('twishlist')->where('twishlist.id_user',Auth::user()->id_user)
                     ->join('titem_hdr', 'twishlist.id_item', '=' , 'titem_hdr.id_item')
-                    ->get();
+                    ->select('twishlist.*', 'titem_hdr.*')->get();
         $nama_web =  DB::table('tglobalsetting')->where('id_global',3)->first();
         $item =[];
         //discount for flashsale
@@ -196,6 +280,9 @@ class UserPageController extends Controller
         $disc = $tsetting->dvalue;
         foreach ($wishlist as $i => $u){
             $item[$i]['index'] = $i;
+            $detail = DB::table('titem_hdr')->where('id_item', $u->id_item)
+                        ->join('users', 'titem_hdr.id_user', '=', 'users.id_user' )
+                        ->select('titem_hdr.*', 'users.vname')->first();
             $picture = DB::table('titem_dtl')->where('id_item', $u->id_item)->select('picture')->orderBy('id_itemdtl', 'asc')->first();
             if ($picture){
                 $item[$i]['picture'] = $picture->picture;
@@ -204,13 +291,14 @@ class UserPageController extends Controller
             }
             $item[$i]['id_item'] = $u->id_item;
             $item[$i]['vname_item'] = $u->vname_item;
+            $item[$i]['vname'] = $detail->vname;
             $item[$i]['vdescription'] = $u->vdescription;
             $item[$i]['istock'] = $u->istock;
             $item[$i]['iprice_after'] = $u->iprice - ($u->iprice * $disc);
             $item[$i]['iprice'] = $u->iprice;
             $item[$i]['iflashsale'] = $u->iflashsale;
         }
-
+        
         return view('wishlist',compact('nama_web','item'));
     }
     public function transaction_ongoing()
@@ -238,17 +326,20 @@ class UserPageController extends Controller
     public function wishlist_add($id){
         $wishlist = DB::table('twishlist')->where('id_item',$id)->first();
         if(is_null($wishlist)){
+            
             DB::table('twishlist')->insert([
                 'id_item' => $id,
                 'id_user' => Auth::user()->id_user,
+                'iactive' => 1,
                 'vcrea' => Auth::user()->email,
-                'dmodi' => Auth::user()->$wishlist, 
                 'dcrea' => Carbon::now(),
             ]);
         }
         if(!is_null($wishlist)){
             DB::table('twishlist')->where('id_item',$id)->delete();
         }
+
+        
         return redirect()->back();
     }
 

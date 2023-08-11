@@ -44,7 +44,7 @@ class XenditController extends Controller
 
         $check_payment =DB::table('tpayment')->where('dcrea',Carbon::now())->first();
 
-        \DB::table('ttransaction_hdr')->insert([
+        DB::table('ttransaction_hdr')->insert([
 
             'id_user' => Auth::user()->id_user,
             'id_payment' => $check_payment->id_payment,
