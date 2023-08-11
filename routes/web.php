@@ -57,7 +57,7 @@ Route::post('proses_login_admin', $ctrl.'\LoginAdminController@authenticateAdmin
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cek_login:admin']], function () {
 
-        Route::get('admin', 'App\Http\Controllers\LoginController@dashboard_admin');
+        Route::get('admin', 'App\Http\Controllers\LoginAdminController@dashboard_admin');
         Route::get('admin/edit/{id}','App\Http\Controllers\UserController@edit');
         Route::post('admin/edit','App\Http\Controllers\UserController@update');
         Route::get('admin/delete/{id}','App\Http\Controllers\UserController@delete');
@@ -82,14 +82,39 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('master/header/edit', 'App\Http\Controllers\MasterController@update_header');
         Route::get('master/header/delete/{id}', 'App\Http\Controllers\MasterController@index_delete');
         Route::post('master/header/delete', 'App\Http\Controllers\MasterController@delete_header');
-        //
+        
+        //Master Toko
         Route::get('master/toko', 'App\Http\Controllers\MasterController@index_headertk');
         Route::post('master/toko/store', 'App\Http\Controllers\MasterController@store_headertk');
         Route::get('master/toko/edit/{id}', 'App\Http\Controllers\MasterController@index_updatetk');
         Route::post('master/toko/edit', 'App\Http\Controllers\MasterController@update_headertk');
         Route::get('master/toko/delete/{id}', 'App\Http\Controllers\MasterController@index_deletetk');
         Route::post('master/toko/delete', 'App\Http\Controllers\MasterController@delete_headertk');
-        //
+
+        //Master Event
+        Route::get('master/event', 'App\Http\Controllers\MasterController@index_event');
+        Route::post('master/event/store', 'App\Http\Controllers\MasterController@insert_event');
+        Route::get('master/event/delete/{id}', 'App\Http\Controllers\MasterController@index_deleteevent');
+        Route::post('master/event/delete', 'App\Http\Controllers\MasterController@delete_event');
+        Route::get('master/event/edit/{id}', 'App\Http\Controllers\MasterController@index_updateevent');
+        Route::post('master/event/edit', 'App\Http\Controllers\MasterController@update_event');
+
+        //Master Discount
+        Route::get('master/discount', 'App\Http\Controllers\MasterController@index_discount');
+        Route::post('master/discount/store', 'App\Http\Controllers\MasterController@store_discount');
+        Route::get('master/discount/edit/{id}', 'App\Http\Controllers\MasterController@index_discountup');
+        Route::post('master/discount/edit', 'App\Http\Controllers\MasterController@update_discount');
+        Route::get('master/discount/delete/{id}', 'App\Http\Controllers\MasterController@index_discountdlt');
+        Route::post('master/discount/delete', 'App\Http\Controllers\MasterController@delete_discount');
+
+
+        //Master Transaction Event
+
+
+        Route::get('master/addresstoko', 'App\Http\Controllers\MasterController@index_headertkadd');
+        Route::get('master/address/delete/{id}', 'App\Http\Controllers\MasterController@index_deletetkadd');
+        Route::post('master/address/delete', 'App\Http\Controllers\MasterController@delete_headertkadd');
+      
 
         Route::get('/master/detail/{id}', 'App\Http\Controllers\MasterController@index_detail');
         Route::get('/detail', 'App\Http\Controllers\MasterController@index_detail2');
@@ -118,7 +143,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['cek_login:staff']], function () {
-        Route::get('staff', 'App\Http\Controllers\LoginController@dashboard_staff');
+        Route::get('staff', 'App\Http\Controllers\LoginAdminController@dashboard_staff');
     });
 
     Route::group(['middleware' => ['cek_login:home']], function () {
@@ -134,7 +159,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/wishlist/add/{id}', 'App\Http\Controllers\UserPageController@wishlist_add');
 
         Route::get('/add_cart/{id}', 'App\Http\Controllers\UserPageController@add_cart');
-        Route::get('/cart', 'App\Http\Controllers\UserPageController@cart');
+        Route::get('/cart/{id}', 'App\Http\Controllers\UserPageController@cart');
 
         Route::post('/checkout','App\Http\Controllers\Api\Payment\XenditController@store');
 
@@ -158,6 +183,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/editprofile_edit','App\Http\Controllers\UserController@editprofile_update');
 
         Route::post('cart/address/select','App\Http\Controllers\UserPageController@cart_address_select');
+        Route::post('cart/voucher/select','App\Http\Controllers\UserPageController@cart_voucher_select');
 
         Route::get('/address/list','App\Http\Controllers\UserController@address_list');
         Route::post('/address/select','App\Http\Controllers\UserController@address_select');
