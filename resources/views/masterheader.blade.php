@@ -9,10 +9,11 @@
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#admin_store">Tambah Data</button>
 		</div>
 		<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
-		  <table id="example" class="table table-bordered">
+		  <table id="example" class="table table-stripped" style="width:100%">
 			<thead>
 			  <tr class="text-center">
 				<th scope="col">Id</th>
+				<th scope="col">Store Name</th>
 				<th scope="col">Item Name</th>
 				<th scope="col">Item Category</th>
 				<th scope="col">Description</th>
@@ -30,6 +31,7 @@
 				@foreach($master as $i => $u)
 				<tr>
 					<td>{{++$i}}</td>
+					<td>{{$u->vname}}</td>
 					<td>{{$u->vname_item}}</td>
 					<td>{{$u->vcategory}}</td>
 					<td>{{$u->vdescription}}</td>
@@ -62,7 +64,13 @@
 			<form action="{{ url('master/header/store')}}" method="POST">
                 @csrf
                 <div class="form-group row mt-3">
-                    <div class="mb-3">
+					<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Nama Toko</label>
+							@foreach ($store as $i => $item)
+                                <input type = "hidden" id="id_user" name= "id_user" value="{{$item->id_user}}"></input> <br/>{{$item->vname}}
+                            @endforeach
+                    </div>
+					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Item name</label>
                         <input name="nama" type="text" class="form-control" placeholder="Enter the Item Name" required>
                     </div>

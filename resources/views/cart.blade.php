@@ -75,6 +75,38 @@
     @endif
     @if (!empty($item))
     <div class="row mt-3 justify-content-center">
+    <div class="col-md-10 d-flex justify-content-center">
+                  <div class="card shadow flex-md-row p-4 w-75">
+                    <div class="row justify-content-center ms-1">
+                      <div
+                        class="col-md-2 d-flex align-items-center justify-content-center"
+                      >
+                        <img src="assets/picture/voucher.png" alt="..." width="300" height="80" />
+                      </div>
+                      <div class="col-md-8 align-items-center">
+                        <h5 class="card-title fw-bold">Voucher Event</h5>
+                        <p class="text-muted card-text">
+                            <input
+                                name="discevent"
+                                type="text"
+                                class="form-control"
+                                value="{{$discevent->vdesc}}"
+                                aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default"
+                                hidden
+                            />
+                            {{$discevent->vname}}
+                            <br>
+                            {{$discevent->vdesc}}
+                        </p>
+                      </div>
+                      <div class="col-md-2 d-flex align-items-center">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#changeEvent" >Change</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
         @php
             $total_price = 0;
             $total_discount = 0;
@@ -91,6 +123,7 @@
                 @endif
                 <div class="card-body">
                   <h5 class="card-title fw-bold">{{$count['vname_item']}}</h5>
+                  <h6 class="text-muted card-text">{{$count['vname']}}</h6>
                   <p class="text-muted card-text">{{$count['vcategory']}}</p>
                   <p class="fw-bold">Rp. {{number_format($count['iprice'] * $count['iquantity'])}}</p>
                   <div class="col-lg text-start">
@@ -131,16 +164,17 @@
             $total_discount += $count['iprice_after']* $count['iquantity'];
         @endphp
         @endforeach
+        
         <form action="{{ url('/checkout')}}" method="post">
             @csrf
             <div class="row justify-content-center mt-3">
-                <div class="col-md-10 d-flex justify-content-center">
+            <div class="col-md-10 d-flex justify-content-center">
                   <div class="card shadow flex-md-row p-4 w-75">
                     <div class="row justify-content-center ms-1">
                       <div
                         class="col-md-2 d-flex align-items-center justify-content-center"
                       >
-                        <img src="assets/picture/Mobil.png" alt="..." />
+                        <img src="assets/picture/Mobil.png" alt="..." width="600" height="60" />
                       </div>
                       <div class="col-md-8 align-items-center">
                         <h5 class="card-title fw-bold">Address</h5>
@@ -201,6 +235,20 @@
                           <p class="text-danger">Rp. {{number_format($total_price - $total_discount)}}</p>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                          <h5 class="card-text fw-bold text-danger">Discount Event</h5>
+                        </div>
+                        <div class="col-md-2">
+                          <p class="text-danger">Rp. 0</p>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-10">
+                          <h5 class="card-text fw-bold text-danger">Discount Birthday</h5>
+                        </div>
+                        <div class="col-md-2">
+                          <p class="text-danger">Rp. 0</p>
+                        </div>
                       <div class="row">
                         <div class="col-md-10">
                           <h5 class="card-text fw-bold text-danger">
@@ -292,7 +340,8 @@
     @endif
     </div>
     <br><br><br>
-    {{-- modal --}}
+    
+    {{-- modalAddress --}}
     <div class="modal fade" id="changeAddress" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -336,6 +385,49 @@
         </div>
       </div>
 
-
+      {{-- modalEvent --}}
+    <div class="modal fade" id="changeEvent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Change Event</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @foreach ($discevent2 as $i => $u)
+                <div class="row justify-content-center my-3">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            @if ($u->status == 1)
+                                <div class="badge bg-secondary mx-3 mb-3 fs-6">Ready</div>
+                            @endif
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="row">
+                                        <h5 class="card-title fw-bolder mx-3">{{$u->vdesc}}</h5>
+                                        <label for="" class="mx-3">{{$u->vname}}</label>
+                                        <label for="" class="mx-3">{{$u->value}}</label>
+                                    </div>
+                                </div>
+                                @if ($u->status == 0)
+                                <div class="col-3">
+                                    <form action="{{ url('cart/voucher/select')}}" method="POST">
+                                        @csrf
+                                            <input type="text" name="id" value="{{$u->id_ttransaction_event}}" hidden>
+                                            <button type="submit" class="btn btn-primary mt-3">Select</button>
+                                    </form>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
 
 @endsection

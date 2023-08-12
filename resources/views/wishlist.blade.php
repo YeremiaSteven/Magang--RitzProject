@@ -53,6 +53,9 @@
                                 <h5 class="card-title fw-bold">
                                   {{$u['vname_item']}}
                                 </h5>
+                                <h6 class="text-muted card-text">
+                                  {{$u['vname']}}
+                                </h6>
                                 <p class="text-muted card-text">
                                     {{$u['vdescription']}}
                                 </p>

@@ -114,6 +114,10 @@
                         <input name="notelp" type="number" class="form-control" required placeholder="Enter your phone number">
                     </div>
                     <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Birthdate</label>
+                        <input name="date" type="date" class="form-control" required placeholder="Enter your Birthdate">
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Address</label>
                         <textarea name="address" class="form-control" required id="exampleFormControlTextarea1" rows="3" placeholder="Enter your address"></textarea>
                     </div>

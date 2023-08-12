@@ -1,182 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content=""/>
-        <meta name="author" content=""/>
-        <title>Dashboard - Afrizals Blog</title>
-        <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link href="{{url('assets/css/styles.css')}}" rel="stylesheet"/>
-        <link
-            href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
-            rel="stylesheet"
-            crossorigin="anonymous"/>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
-            crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Afrizals Blog</a>
-            <button
-                class="btn btn-link btn-sm order-1 order-lg-0"
-                id="sidebarToggle"
-                href="#">
-                <i class="fas fa-bars"></i>
-            </button >
-            <!-- Navbar Search-->
-            <form
-                class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input
-                        class="form-control"
-                        type="text"
-                        placeholder="Search for..."
-                        aria-label="Search"
-                        aria-describedby="basic-addon2"/>
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
+<!-- Menghubungkan dengan view template master -->
+@extends('template')
+@section('content')
+
+<div class="col d-flex flex-column h-sm-100">
+	<h1 class="text-center mt-3 fw-bold">Account Management</h1>
+	<div class="col-md-4 mt-3 ps-5">
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#admin_store">Tambah Data</button>
+	</div>
+	<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
+		  <table id="example" class="table table-stripped" style="width:100%">
+			<thead>
+			  <tr class="text-center">
+				<th scope="col">Id</th>
+				<th scope="col">Fullname</th>
+				<th scope="col">Email</th>
+				<th scope="col">Telp No.</th>
+				<th scope="col">Active</th>
+				<th scope="col">Role</th>
+				<th scope="col">Created by</th>
+				<th scope="col">Modified by</th>
+				<th scope="col">Last Update</th>
+				<th scope="col">Action</th>
+			  </tr>
+		</thead>
+		<tbody>
+			@foreach($user as $i => $u)
+				<tr>
+				<td>{{++$i}}</td>
+				<td>{{$u->vname}}</td>
+				<td>{{$u->email}}</td>
+				<td>{{$u->vno_telp}}</td>
+				<td>{{$u->istatus_user}}</td>
+				<td>{{$u->vrole_name}}</td>
+				<td>{{$u->vcrea}}</td>
+                <td>{{$u->vmodi}}</td>
+
+				{{-- @if ($u->vmodi == null)
+                <td>-</td>
+				@endif
+				@if ($u->vmodi == 44441)
+                <td>Admin</td>
+				@endif
+				@if ($u->vmodi == 44442)
+                <td>Staff</td>
+				@endif
+				@if ($u->vmodi == 44443)
+                <td>User</td>
+				@endif
+
+				@if ($u->dmodi == null)
+                <td>-</td>
+				@endif
+				@if ($u->dmodi) --}}
+                <td>{{$u->dmodi}}</td>
+				{{-- @endif --}}
+				<td class="text-center">
+					<a href="admin/edit/{{$u->id_user}}"><i class="fa-regular fa-pen-to-square me-2"></i></a>
+					<a href="admin/delete/{{$u->id_user}}"><i class="fa-solid fa-trash me-2"></i></a>
+				</td>
+			</tr>
+			@endforeach
+		</tbody>
+	  </table>
+	</div>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="admin_store" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form action="{{ url('admin/store')}}" method="POST">
+                @csrf
+                <div class="form-group row mt-3">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label" >Fullname</label>
+                        <input name="nama" type="text" class="form-control" placeholder="Enter your fullname" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                        <input name="email" type="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+                        <input name="notelp" type="number" class="form-control" placeholder="Enter your phone number" required>
+                    </div>
+					<div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Role</label>
+                        <select name="role" class="form-select form-select-sm" aria-label=".form-select-lg example">
+							<option selected>Open this select menu</option>
+							<option value="44441">Admin</option>
+							<option value="44442">Staff</option>
+							<option value="44443">User</option>
+						</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Password</label>
+						<input name="password" type="password" class="form-control" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+					</div>
+                    {{-- <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Confirm Your Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password confirmation">
+                    </div> --}}
                 </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a
-                        class="nav-link dropdown-toggle"
-                        id="userDropdown"
-                        href="#"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="fas fa-user fa-fw"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{url('logout')}}">Logout</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	  </div>
+	</div>
+  </div>
 
-                    <div class="sb-sidenav-footer">
-                        <div class="small"></div>
-                        Start Bootstrap
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <h1>Login Sebagai:
-                            {{Auth::user()}}</h1>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white">
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white">
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white">
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white">
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
-                                    <div class="card-body">
-                                        <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
-                                    <div class="card-body">
-                                        <canvas id="myBarChart" width="100%" height="40"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Afrizals Blog 2020</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            crossorigin="anonymous"></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
-
-    </body>
-</html>
+@endsection

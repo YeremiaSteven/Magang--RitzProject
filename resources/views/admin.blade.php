@@ -54,8 +54,9 @@
 				@if ($u->dmodi) --}}
                 <td>{{$u->dmodi}}</td>
 				{{-- @endif --}}
-				<td class="text-center"><a href="admin/edit/{{$u->id_user}}"><i class="fa-regular fa-pen-to-square me-2"></i></a>
-				<a href="admin/delete/{{$u->id_user}}"><i class="fa-solid fa-trash me-2"></i></a>
+				<td class="text-center">
+					<a href="admin/edit/{{$u->id_user}}"><i class="fa-regular fa-pen-to-square me-2"></i></a>
+					<a href="admin/delete/{{$u->id_user}}"><i class="fa-solid fa-trash me-2"></i></a>
 				</td>
 			</tr>
 			@endforeach

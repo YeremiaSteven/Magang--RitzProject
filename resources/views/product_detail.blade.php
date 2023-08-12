@@ -88,6 +88,7 @@
             </div>
             <div class="col-md mt-5 text-start">
             <p class="h5 fw-bold">{{$detail_item->vname_item}}</p>
+            <p class="d-flex justify-content-start">{{$detail_item->vname}}</p>
             <div class="text-muted small">Stock : {{$detail_item->istock}}</div>
             <div class="d-flex justify-content-start">
                 @if ($detail_item->iflashsale == 1)
@@ -106,8 +107,7 @@
                     <a href="/wishlist/add/{{$detail_item->id_item}}">
                         <button
                             type="button"
-                            class="btn btn-outline-secondary d-bloxk w-100"
-                        >
+                            class="btn btn-outline-secondary d-bloxk w-100">
                             <i class="fa-solid fa-heart" style="color: #6b9bd0"></i> Wishlist
                         </button>
                     </a>
@@ -118,14 +118,12 @@
                     <a href="/wishlist/add/{{$detail_item->id_item}}">
                         <button
                             type="button"
-                            class="btn btn-outline-secondary d-bloxk w-100"
-                        >
+                            class="btn btn-outline-secondary d-bloxk w-100">
                             <i class="fa-solid fa-heart" style="color: red"></i> Wishlist
                         </button>
                     </a>
                 </div>
                 @endif
-
             </div>
             <p class="h6 fw-bold">Description</p>
             <p class="me-3">
@@ -163,6 +161,4 @@
     <br>
     <br>
 </section>
-
-
 @endsection

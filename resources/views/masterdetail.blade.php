@@ -9,7 +9,7 @@
 			<a href="/detail/store/{{$id}}"><button type="button" class="btn btn-primary">Tambah Data</button></a>
 		</div>
 		<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
-		  <table id="example" class="table table-bordered">
+		  <table id="example" class="table table-stripped" style="width:100%">
 			<thead>
 			  <tr class="text-center">
 				<th scope="col">Id</th>
@@ -34,7 +34,8 @@
                     <td>{{$u->dcrea}}</td>
                     <td>{{$u->vmodi}}</td>
                     <td>{{$u->dmodi}}</td>
-					<td class="text-center"><a href="/detail/edit/{{$u->id_itemdtl}}"><i class="fa-regular fa-pen-to-square me-2"></i></a><a href="/detail/delete/{{$u->id_itemdtl}}"><i class="fa-solid fa-trash me-2"></i></a></td>
+					<td class="text-center"><a href="/detail/edit/{{$u->id_itemdtl}}"><i class="fa-regular fa-pen-to-square me-2"></i></a>
+					<a href="/detail/delete/{{$u->id_itemdtl}}"><i class="fa-solid fa-trash me-2"></i></a></td>
 				</tr>
 				@endforeach
 			</tbody>

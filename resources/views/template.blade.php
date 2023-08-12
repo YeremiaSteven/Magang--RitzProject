@@ -34,12 +34,13 @@
         <div class="col justify-content-center text-center">
             <a class="text-decoration-none small text-light me-3" href="#"><i class="fa-solid fa-check me-1"></i>FLASH SALE IS ONGOING</a>
             <div class="btn-group">
-              <button class="btn btn-sm dropdown-toggle text-light small" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Eng
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item small" href="#">Ind</a></li>
-              </ul>
+            <button class="btn btn-sm dropdown-toggle text-light small" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Login As
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item small" href="loginadmin">Admin</a></li>
+                  <li><a class="dropdown-item small" href="login">User</a></li>
+                </ul>
               <a class="nav-link small text-light">Faqs</a>
               <a class="nav-link small text-light">Need Help<i class="fa-solid fa-exclamation ms-1"></i></a>
         </div>
@@ -93,6 +94,7 @@
             <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Account</span></a>
             <ul class="submenu collapse">
               <li style="list-style-type: none"><a class="nav-link" href="/admin">Account Management </a></li>
+              <li style="list-style-type: none"><a class="nav-link" href ="/master/toko">Toko Management</a></li>
               <li style="list-style-type: none"><a class="nav-link" href="/member">Member Request </a></li>
               <li style="list-style-type: none"><a class="nav-link" href="/member/list">Member List </a></li>
             </ul>
@@ -109,8 +111,9 @@
             <a href="#" class="nav-link px-sm-0 px-2">
             <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Master</span></a>
             <ul class="submenu collapse">
-              <li style="list-style-type: none"><a class="nav-link" href ="/master/toko">Toko</a></li>
               <li style="list-style-type: none"><a class="nav-link" href ="/master/header">Item </a></li> 
+              <li style="list-style-type: none"><a class="nav-link" href ="/master/event" >Event</a></li>
+              <li style="list-style-type: none"><a class="nav-link" href ="/master/discount">Discount</a></li> 
             </ul>
           </li>
           <li class="nav-item has-submenu">

@@ -6,7 +6,7 @@
 	<main class="row overflow-auto flex-column">
 		<h1 class="text-center mt-3 fw-bold">Transaction Detail</h1>
 		<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
-		  <table id="example" class="table table-bordered">
+		  <table id="example" class="table table-stripped" style="width:100%">
 			<thead>
 			  <tr class="text-center">
                 <th scope="col">Number</th>

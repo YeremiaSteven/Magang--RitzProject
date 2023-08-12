@@ -13,6 +13,22 @@
                     <input type="text" name="id" value="{{$master->id_item}}" hidden>
                     <div class="input-group mb-3 mt-3">
                         <span class="input-group-text w-50" id="inputGroup-sizing-default"
+                          >Store Name</span
+                        >
+                        <select name="store" class="form-select" aria-label="Default select example">
+                            @foreach ($store as $i => $item)
+                                @if ($item->id_user== $master->id_user)
+                                    <option value="{{$item->id_user}}" selected>{{$item->vname}}</option>
+                                @endif
+                                @if ($item->id_user != $master->id_user)
+                                    <option value="{{$item->id_user}}">{{$item->vname}}</option>
+                                @endif
+
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="input-group mb-3 mt-3">
+                        <span class="input-group-text w-50" id="inputGroup-sizing-default"
                           >Item Name</span
                         >
                         <input

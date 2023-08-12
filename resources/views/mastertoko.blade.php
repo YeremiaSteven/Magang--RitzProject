@@ -9,14 +9,17 @@
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#admin_store">Tambah Data</button>
 		</div>
 		<div class="col-md ps-5 pe-5" style="padding-top:1rem;">
-		  <table id="example" class="table table-bordered">
+		  <table id="example" class="table table-stripped" style="width:100%">
 			<thead>
 			  <tr class="text-center">
 				<th scope="col">Id</th>
 				<th scope="col">Name Toko</th>
-				<th scope="col">No Handphone Toko</th>
+				<th scope="col">Role</th>
+				<th scope="col">Active</th>
 				<th scope="col">Alamat Toko</th>
-				<th scope="col">Rate Toko</th>
+				<th scope="col">No Handphone Toko</th>
+				<th scope="col">Email</th>
+				<th scope="col">Modified by</th>
 				<th scope="col">Last Update</th>
 				<th scope="col">Action</th>
 			  </tr>
@@ -25,13 +28,37 @@
 				@foreach($master as $i => $u)
 				<tr>
 					<td>{{++$i}}</td>
-					<td>{{$u->vname_toko}}</td>
-					<td>{{$u->vaddress_toko}}</td>
-					<td>{{$u->vno_telptoko}}</td>
-					<td>{{$u->irate_toko}}</td>
+					<td>{{$u->vname}}</td>
+					<td>{{$u->vrole_name}}</td>
+					<td>{{$u->istatus_user}}</td>
+					<td>{{$u->vaddress}}</td>
+					<td>{{$u->vno_telp}}</td>
+					<td>{{$u->email}}</td>
+					<td>{{$u->vmodi}}</td>
+					{{-- @if ($u->vmodi == null)
+					<td>-</td>
+					@endif
+					@if ($u->vmodi == 44441)
+					<td>Admin</td>
+					@endif
+					@if ($u->vmodi == 44442)
+					<td>Staff</td>
+					@endif
+					@if ($u->vmodi == 44443)
+					<td>User</td>
+					@endif
+
+					@if ($u->dmodi == null)
+					<td>-</td>
+					@endif
+					@if ($u->dmodi) --}}
 					<td>{{$u->dmodi}}</td>
-					<td class="text-center"><a href="/master/toko/edit/{{$u->id_toko}}"><i class="fa-regular fa-pen-to-square me-2"></i></a><a href="/master/header/delete/{{$u->id_item}}"><i class="fa-solid fa-trash me-2"></i></a><a href="detail/{{$u->id_item}}"><i class="fa fa-info-circle me-2" aria-hidden="true"></i></a></td>
-				</tr>
+					{{-- @endif --}}
+						<td class="text-center">
+							<a href="/master/toko/edit/{{$u->id_user}}"><i class="fa-regular fa-pen-to-square me-2"></i></a>
+							<a href="/master/toko/delete/{{$u->id_user}}"><i class="fa-solid fa-trash me-2"></i></a>
+						</td>
+					</tr>
 				@endforeach
 			</tbody>
 		  </table>
@@ -45,7 +72,7 @@
 	<div class="modal-dialog">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLabel">Insert Item</h5>
+		  <h5 class="modal-title" id="exampleModalLabel">Insert Store</h5>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		</div>
 		<div class="modal-body">
@@ -58,7 +85,7 @@
                     </div>
 					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Address Toko</label>
-                        <input name="address type="text" class="form-control" placeholder="Enter the Address Toko" required>
+                        <input name="address" type="text" class="form-control" placeholder="Enter the Address Toko" required>
                     </div>
 					<div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
